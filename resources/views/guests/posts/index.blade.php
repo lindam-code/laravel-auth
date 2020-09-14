@@ -7,6 +7,9 @@
         <ul>
           @foreach ($posts as $post)
             <li>{{ $post->title }}</li>
+            <span>
+              <a class="btn btn-primary" href="{{ route('posts.show', $post) }}">Visualizza</a>
+            </span>
           @endforeach
         </ul>
       </div>

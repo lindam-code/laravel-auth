@@ -12,4 +12,9 @@ class PostController extends Controller
 
       return view('guests.posts.index', compact('posts'));
     }
+
+    public function show(Post $post) {
+
+      return view('guests.posts.show', compact('post'));
+    }
 }
