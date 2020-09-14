@@ -4,6 +4,9 @@
     <div class="row">
       <div class="col-12">
         <h2>Benvenuto {{ $user->name }}, ecco la lista dei post</h2>
+        <div>
+          <a href="{{ route('admin.posts.create') }}">Crea un nuovo post</a>
+        </div>
         <ul>
           @foreach ($posts as $post)
             <li>{{ $post->user->name }} - {{ $post->title }}</li>

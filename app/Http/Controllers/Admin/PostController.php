@@ -30,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.edit');
     }
 
     /**
@@ -41,7 +41,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate($this->getValidationRules());
+      $data = $request->all();
+      
+      $post = new Post();
+      $post->title = $data['title'];
+      $post->content = $data['content'];
+      $post->user_id = 1;
+      $post->image_url = 'https://i.pinimg.com/originals/5f/b8/b2/5fb8b26dd5c47a8eb1a23b2ea28d77d3.png';
+      // $post->fill($data);
+      $saved = $post->save();
+
+      if($saved) {
+        return redirect()->route('admin.posts.show', $post);
+      }
     }
 
     /**
