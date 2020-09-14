@@ -61,9 +61,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -73,9 +73,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+      $request->validate($this->getValidationRules());
+      $data = $request->all();
+      $updated = $post->update($data);
+
+      if($updated) {
+        return redirect()->route('admin.posts.show', $post);
+      }
     }
 
     /**
@@ -87,5 +93,12 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function getValidationRules() {
+      return [
+        'title' => 'required|max:255',
+        'content' => 'required|max:700',
+      ];
     }
 }

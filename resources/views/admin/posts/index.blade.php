@@ -7,9 +7,12 @@
         <ul>
           @foreach ($posts as $post)
             <li>{{ $post->user->name }} - {{ $post->title }}</li>
-            <span>
+            <div>
               <a class="btn btn-primary" href="{{ route('admin.posts.show', $post) }}">Visualizza</a>
-            </span>
+            </div>
+            <div>
+              <a class="btn btn-secondary" href="{{ route('admin.posts.edit', $post) }}">Modifica</a>
+            </div>
           @endforeach
         </ul>
       </div>
