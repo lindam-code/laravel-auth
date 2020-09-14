@@ -3,10 +3,10 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2>Benvenuto {{ $user->name }}, ecco la lista dei post</h2>
+        <h2>Lista dei post per Guests</h2>
         <ul>
           @foreach ($posts as $post)
-            <li>{{ $post->user->name }} - {{ $post->title }}</li>
+            <li>{{ $post->title }}</li>
           @endforeach
         </ul>
       </div>
