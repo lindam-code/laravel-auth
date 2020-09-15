@@ -30,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.edit');
+        return view('admin.posts.create');
     }
 
     /**
@@ -44,16 +44,20 @@ class PostController extends Controller
       $request->validate($this->getValidationRules());
       $data = $request->all();
 
-      $post = new Post();
-      $post->title = $data['title'];
-      $post->content = $data['content'];
-      $post->user_id = 1;
-      $post->image_url = 'https://i.pinimg.com/originals/5f/b8/b2/5fb8b26dd5c47a8eb1a23b2ea28d77d3.png';
-      // $post->fill($data);
-      $saved = $post->save();
+      $new_post = new Post();
+      $new_post->title = $data['title'];
+      $new_post->content = $data['content'];
+      $new_post->user_id = Auth::id();
+      // Carico il file dell'iimagine nella cartella locale
+      $path = $request->file('image_url')->store('images','public');
+      // Salvo il path nel database
+      $new_post->image_url = $path;
 
+      $saved = $new_post->save();
+
+      // Redirect alla show pubblica per vedere come vedono i post tutti
       if($saved) {
-        return redirect()->route('admin.posts.show', $post);
+        return redirect()->route('posts.show', $new_post);
       }
     }
 
@@ -113,6 +117,7 @@ class PostController extends Controller
       return [
         'title' => 'required|max:255',
         'content' => 'required|max:700',
+        'image_url' => 'image',
       ];
     }
 }

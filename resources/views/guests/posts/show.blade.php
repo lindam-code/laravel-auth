@@ -5,9 +5,10 @@
       <div class="col-12">
         <h2>{{ $post->title }}</h2>
 
-        <div>
-          <img src="{{ $post->image_url }}" alt="image">
-        </div>
+          <div>
+            <img src="{{ asset('storage') . '/' . $post->image_url }}" alt="image">
+          </div>
+
         <div>
           <p>{{ $post->content }}</p>
         </div>

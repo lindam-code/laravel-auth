@@ -11,7 +11,7 @@
         </div>
 
         <div>
-          <img src="{{ $post->image_url }}" alt="image">
+          <img src="{{ asset('storage') . '/' . $post->image_url }}" alt="image">
         </div>
         <div>
           <p>{{ $post->content }}</p>
