@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\PostCreateMail;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -56,7 +58,9 @@ class PostController extends Controller
       $saved = $new_post->save();
 
       // Redirect alla show pubblica per vedere come vedono i post tutti
+      // e mando un email all'utente che ha creato il post
       if($saved) {
+        Mail::to($new_post->user->email)->send(new PostCreateMail());
         return redirect()->route('posts.show', $new_post);
       }
     }
